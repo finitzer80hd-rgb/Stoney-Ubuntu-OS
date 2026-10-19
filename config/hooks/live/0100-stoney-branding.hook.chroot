@@ -1,0 +1,24 @@
+#!/bin/sh
+set -eu
+
+# Set basic identity while preserving the underlying Ubuntu package metadata.
+if [ -f /etc/os-release ]; then
+    sed -i \
+      -e 's/^PRETTY_NAME=.*/PRETTY_NAME="Stoney Linux (Ubuntu-based)"/' \
+      -e 's/^NAME=.*/NAME="Stoney Linux"/' \
+      /etc/os-release
+fi
+
+printf '%s\n' 'stoney-live' > /etc/hostname
+if command -v debconf-set-selections >/dev/null 2>&1; then
+    printf '%s\n' 'lightdm shared/default-x-display-manager select lightdm' | debconf-set-selections
+fi
+
+install -d -m 0755 /etc/stoney-linux
+cat > /etc/stoney-linux-release <<'EOF'
+NAME="Stoney Linux"
+ID=stoney
+ID_LIKE="ubuntu debian"
+PRETTY_NAME="Stoney Linux (Ubuntu-based)"
+VARIANT="XFCE Desktop Preview"
+EOF
