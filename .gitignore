@@ -1,0 +1,10 @@
+work/
+cache/
+chroot/
+binary/
+*.build
+*.buildinfo
+*.changes
+out/*.iso
+out/*.log
+out/*.sha256
