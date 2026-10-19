@@ -19,13 +19,13 @@ Use a clean Ubuntu 24.04 LTS amd64 VM with internet access, sudo, 8 GB RAM recom
 ```bash
 git clone https://github.com/finitzer80hd-rgb/Stoney-Ubuntu-OS.git
 cd Stoney-Ubuntu-OS
-sudo ./scripts/build-iso.sh
+sudo bash scripts/build-iso.sh
 ```
 
 Optional environment variables:
 
 ```bash
-sudo UBUNTU_SUITE=noble ARCH=amd64 ./scripts/build-iso.sh
+sudo env UBUNTU_SUITE=noble ARCH=amd64 bash scripts/build-iso.sh
 ```
 
 The script installs build dependencies, writes a build log, and if successful saves the ISO and SHA-256 checksum under `out/`.
@@ -33,7 +33,7 @@ The script installs build dependencies, writes a build log, and if successful sa
 ## Test output
 
 ```bash
-bash ./scripts/test-iso.sh out/stoney-linux-noble-amd64.iso
+bash scripts/test-iso.sh out/stoney-linux-noble-amd64.iso
 sha256sum -c out/stoney-linux-noble-amd64.iso.sha256
 sudo apt install qemu-system-x86
 qemu-system-x86_64 -m 4096 -smp 4 -cdrom out/stoney-linux-noble-amd64.iso -boot d -nic user
